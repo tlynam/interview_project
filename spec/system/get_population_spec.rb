@@ -5,9 +5,11 @@ RSpec.describe "Get population by year", type: :system do
     visit populations_path
   end
 
-  it "User is presented with an input form" do
-    assert_selector "input[name=year]"
-    assert_selector "button[type=submit]"
+  describe "Input form" do
+    it "contains a year input and submit button" do
+      assert_selector "input[name=year]"
+      assert_selector "button[type=submit]"
+    end
   end
 
   describe "When user enters a valid year" do
