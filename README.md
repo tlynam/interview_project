@@ -97,7 +97,7 @@ CEO is confused by which of the query and responses are for real data or
 computed data. We'll need to add that to the_logz.
 
 Please update the_logz page to display which responses came from the database
-and which were calculated mathmatically. Call it "exact" vs "calculated"
+and which were calculated mathematically. Call it "exact" vs "calculated"
 
 ### Challenge #8
 
