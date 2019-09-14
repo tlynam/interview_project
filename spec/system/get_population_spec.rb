@@ -13,10 +13,11 @@ RSpec.describe "Get population by year", type: :system do
   end
 
   describe "When user enters a valid year" do
-    it "redirects to a results page" do
+    it "remains on same page" do
       fill_in("year", with: 1950)
       click_button("Submit")
-      expect(current_path).to eq "/populations/by_year"
+
+      expect(current_path).to eq "/populations"
     end
 
     it "shows a population figure" do
