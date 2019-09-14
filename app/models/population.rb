@@ -1,14 +1,25 @@
 class Population < ApplicationRecord
+  GROWTH_RATE = 1.09
+
   def self.get(year:)
     query_year = year.to_i
 
     populations = Population.order(year: :asc).pluck(:year, :population)
 
-    min_year_date = populations.first.first
+    min_year = populations.first.first.year
     max_year_date, max_year_pop = populations.last
+    max_year = max_year_date.year
 
-    return 0 if query_year < min_year_date.year
-    return max_year_pop if query_year > max_year_date.year
+    return 0 if query_year < min_year
+    return 0 if query_year > 2500
+
+    if query_year > max_year
+      return calc_population(
+        base_population: max_year_pop,
+        base_year: max_year,
+        query_year: query_year
+      )
+    end
 
     populations.each_with_index do |(db_date, current_year_pop), index|
       current_year = db_date.year
@@ -31,5 +42,11 @@ class Population < ApplicationRecord
         return current_year_pop + additional_population
       end
     end
+  end
+
+  def self.calc_population(base_population:, base_year:, query_year:)
+    number_of_years = query_year - base_year
+    result = base_population * (GROWTH_RATE**number_of_years)
+    result.to_i
   end
 end

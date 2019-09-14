@@ -18,9 +18,24 @@ RSpec.describe Population, type: :model do
       expect(Population.get(year: -1000)).to eq(0)
     end
 
-    it "returns last known population that is after latest known" do
-      expect(Population.get(year: 2000)).to eq(248709873)
-      expect(Population.get(year: 200000)).to eq(248709873)
+    it "returns exponentially calculated population after latest known year" do
+      expect(Population.get(year: 2000)).to eq(588786718)
+    end
+
+    it "returns 0 after year 2500" do
+      expect(Population.get(year: 2501)).to eq(0)
+    end
+  end
+
+  describe ".calc_population" do
+    it "returns population based on 9% exponential growth after last known year" do
+      result = Population.calc_population(
+        base_population: 248709873,
+        base_year: 1990,
+        query_year: 2100
+      )
+
+      expect(result).to eq 3255425786221
     end
   end
 end
