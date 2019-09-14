@@ -1,0 +1,15 @@
+<table>
+  <tr>
+    <th>Year</th>
+    <th>Population</th>
+  <% @logs.each do |log| %>
+    <tr>
+      <td>
+        <%= log.year %>
+      </td>
+      <td>
+        <%= log.population %>
+      </td>
+    </tr>
+  <% end %>
+</table>

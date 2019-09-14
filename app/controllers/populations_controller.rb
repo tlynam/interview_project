@@ -4,10 +4,21 @@ class PopulationsController < ApplicationController
 
   def show
     @year = params[:year]
-    @population = Population.get(year: @year)
 
-    respond_to do |format|
-      format.js
+    service = CalculatePopulationService.new(query_year: @year)
+
+    if service.run
+      @population = service.calculated_pop
+
+      respond_to do |format|
+        format.js
+      end
+    else
+      @service_errors = service.service_errors
+
+      respond_to do |format|
+        format.js
+      end
     end
   end
 end
