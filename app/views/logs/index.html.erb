@@ -2,13 +2,17 @@
   <tr>
     <th>Year</th>
     <th>Population</th>
+    <th>Calculation Type</th>
   <% @logs.each do |log| %>
     <tr>
       <td>
         <%= log.year %>
       </td>
       <td>
-        <%= log.population %>
+        <%= number_with_delimiter(log.population) %>
+      </td>
+      <td>
+        <%= log.calculation_type %>
       </td>
     </tr>
   <% end %>

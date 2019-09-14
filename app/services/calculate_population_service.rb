@@ -5,7 +5,7 @@ class CalculatePopulationService
 
   POST_DATA_GROWTH_RATE = 1.09
 
-  attr_accessor :service_errors, :query_year, :calculated_pop
+  attr_accessor :service_errors, :query_year, :calculated_pop, :calculation_type
 
   validates :query_year, presence: true
 
@@ -66,6 +66,7 @@ class CalculatePopulationService
   end
 
   def post_data_calc
+    self.calculation_type = 'calculated'
     number_of_years = query_year - max_data_year
     result = max_data_year_pop * (POST_DATA_GROWTH_RATE**number_of_years)
     result.to_i
@@ -76,13 +77,17 @@ class CalculatePopulationService
       current_year = db_date.year
       next_entry = population_data[index + 1]
 
-      return current_year_pop if query_year == current_year
-      return current_year_pop if next_entry.blank?
+      if query_year == current_year
+        self.calculation_type = 'exact'
+        return current_year_pop
+      end
 
       next_entry_year = next_entry.first.year
       next_entry_pop = next_entry.second
 
       if (current_year...next_entry_year).cover?(query_year)
+        self.calculation_type = 'calculated'
+
         entries_population_diff = (next_entry_pop - current_year_pop).to_f
         entries_years_diff = (next_entry_year - current_year).to_f
         avg_yearly_diff = entries_population_diff / entries_years_diff
@@ -98,7 +103,8 @@ class CalculatePopulationService
   def save_query_to_log
     Log.create(
       year: query_year,
-      population: calculated_pop
+      population: calculated_pop,
+      calculation_type: calculation_type
     )
   end
 end
