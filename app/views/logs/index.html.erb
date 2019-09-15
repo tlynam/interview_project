@@ -1,4 +1,5 @@
 <table>
+  <h3>Query Log</h3>
   <tr>
     <th>Year</th>
     <th>Population</th>
@@ -13,6 +14,23 @@
       </td>
       <td>
         <%= log.calculation_type %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<table>
+  <h3>Query Populations Counts</h3>
+  <tr>
+    <th>Year</th>
+    <th>Query Count</th>
+  <% @population_counts.each do |year, count| %>
+    <tr>
+      <td>
+        <%= year %>
+      </td>
+      <td>
+        <%= count %>
       </td>
     </tr>
   <% end %>

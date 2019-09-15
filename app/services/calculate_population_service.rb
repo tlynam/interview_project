@@ -102,7 +102,7 @@ class CalculatePopulationService
 
   def save_query_to_log
     Log.create(
-      year: query_year,
+      year: Date.new(query_year,1,1),
       population: calculated_pop,
       calculation_type: calculation_type
     )
