@@ -1,8 +1,31 @@
+<h3 class="errors"></h3>
+
 <h1>Get your population numbers here</h1>
 <form method="get" action="populations/by_year" data-remote="true">
-  <input name="year" />
+  <input type="text" name="year" class="year-input" />
+
+  <div class="prediction-models" style="display:none">
+    <label for="logistic">Logistic</label>
+    <input name="prediction_model" type="radio" value="logistic" checked="checked">
+
+    <label for="exponential">Exponential</label>
+    <input name="prediction_model" type="radio" value="exponential">
+  </div>
+
   <button type="submit">Submit</button>
 </form>
 
 <div class="population-data">
 </div>
+
+<script type="text/javascript">
+  $(function() {
+    $(".year-input").on("input", function() {
+      if(Number(this.value) > 1990){
+        $(".prediction-models").css('display', 'block')
+      } else {
+        $(".prediction-models").css('display', 'none')
+      }
+    });
+  });
+</script>

@@ -129,3 +129,10 @@ Please add a radio button to the form that specifies the growth model as either
 exponential or logistic. Customers should only see the toggle if they enter a
 year greater than 1990. In deference to our biggest client, the default should
 be logistic.
+
+### Todd's Notes
+* I realized I should change the date columns to integers but I didn't have time
+* Interesting that sqlite requires a default for null: false columns
+  * calculation_type, :string, default: '', null: false
+  * We can omit a default for a null: false column in postgres
+* I would write more specs like for the service object methods but didn't have time

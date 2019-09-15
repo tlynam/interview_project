@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_14_234005) do
+ActiveRecord::Schema.define(version: 2019_09_15_012612) do
 
   create_table "logs", force: :cascade do |t|
     t.date "year", null: false
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2019_09_14_234005) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "calculation_type", default: "", null: false
+    t.string "prediction_model", default: "", null: false
   end
 
   create_table "populations", force: :cascade do |t|

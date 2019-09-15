@@ -4,16 +4,20 @@
     <th>Year</th>
     <th>Population</th>
     <th>Calculation Type</th>
+    <th>Prediction Model</th>
   <% @logs.each do |log| %>
     <tr>
       <td>
-        <%= log.year %>
+        <%= log.year.year %>
       </td>
       <td>
         <%= number_with_delimiter(log.population) %>
       </td>
       <td>
         <%= log.calculation_type %>
+      </td>
+      <td>
+        <%= log.prediction_model %>
       </td>
     </tr>
   <% end %>
@@ -27,7 +31,7 @@
   <% @population_counts.each do |year, count| %>
     <tr>
       <td>
-        <%= year %>
+        <%= year.year %>
       </td>
       <td>
         <%= count %>

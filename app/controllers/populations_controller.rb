@@ -5,7 +5,10 @@ class PopulationsController < ApplicationController
   def show
     @year = params[:year]
 
-    service = CalculatePopulationService.new(query_year: @year)
+    service = CalculatePopulationService.new(
+      query_year: @year,
+      prediction_model: params[:prediction_model]
+    )
 
     if service.run
       @population = service.calculated_pop
@@ -14,7 +17,13 @@ class PopulationsController < ApplicationController
         format.js
       end
     else
-      @service_errors = service.service_errors
+      validation_errors = service.service_errors[:validation]
+
+      @errors = if validation_errors.present?
+                  validation_errors.join(". ")
+                else
+                  'Internal Error Occurred'
+                end
 
       respond_to do |format|
         format.js
