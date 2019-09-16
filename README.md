@@ -131,7 +131,6 @@ year greater than 1990. In deference to our biggest client, the default should
 be logistic.
 
 ### Todd's Notes
-* I realized I should change the date columns to integers but I didn't have time
 * Interesting that sqlite requires a default for null: false columns
   * calculation_type, :string, default: '', null: false
   * We can omit a default for a null: false column in postgres

@@ -8,7 +8,7 @@
   <% @logs.each do |log| %>
     <tr>
       <td>
-        <%= log.year.year %>
+        <%= log.query_year %>
       </td>
       <td>
         <%= number_with_delimiter(log.population) %>
@@ -31,7 +31,7 @@
   <% @population_counts.each do |year, count| %>
     <tr>
       <td>
-        <%= year.year %>
+        <%= year %>
       </td>
       <td>
         <%= count %>

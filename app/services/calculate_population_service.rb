@@ -57,11 +57,11 @@ class CalculatePopulationService
   end
 
   def min_data_year
-    @min_data_year ||= population_data.first.first.year
+    @min_data_year ||= population_data.first.first
   end
 
   def max_data_year
-    @max_data_year ||= population_data.last.first.year
+    @max_data_year ||= population_data.last.first
   end
 
   def max_data_year_pop
@@ -118,7 +118,7 @@ class CalculatePopulationService
 
   def within_dataset_calc
     population_data.each_with_index do |(db_date, current_year_pop), index|
-      current_year = db_date.year
+      current_year = db_date
       next_entry = population_data[index + 1]
 
       if query_year == current_year
@@ -126,7 +126,7 @@ class CalculatePopulationService
         return current_year_pop
       end
 
-      next_entry_year = next_entry.first.year
+      next_entry_year = next_entry.first
       next_entry_pop = next_entry.second
 
       if (current_year...next_entry_year).cover?(query_year)
@@ -146,7 +146,7 @@ class CalculatePopulationService
 
   def save_query_to_log
     Log.create(
-      year: Date.new(query_year,1,1),
+      query_year: query_year,
       population: calculated_pop,
       calculation_type: calculation_type,
       prediction_model: prediction_model

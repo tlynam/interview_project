@@ -10,22 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_15_012612) do
+ActiveRecord::Schema.define(version: 2019_09_16_181817) do
 
   create_table "logs", force: :cascade do |t|
-    t.date "year", null: false
     t.integer "population", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "calculation_type", default: "", null: false
     t.string "prediction_model", default: "", null: false
+    t.integer "query_year"
   end
 
   create_table "populations", force: :cascade do |t|
-    t.date "year"
-    t.bigint "population"
+    t.integer "population"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "year"
   end
 
 end
