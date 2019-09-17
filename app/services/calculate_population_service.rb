@@ -69,11 +69,7 @@ class CalculatePopulationService
   end
 
   def calc_population
-    if query_year > 2500
-      0
-    elsif query_year < min_data_year
-      0
-    elsif query_year > max_data_year
+    if query_year > max_data_year
       post_data_calc
     elsif (min_data_year..max_data_year).cover?(query_year)
       within_dataset_calc
@@ -101,11 +97,12 @@ class CalculatePopulationService
   def calc_logistic_pop
     number_of_years = query_year - max_data_year
 
-    denominator_part1 = POPULATION_CAPACITY - max_data_year_pop
-    denominator_part2 = Math.exp(-0.09 * number_of_years)
-    denominator = max_data_year_pop + (denominator_part1 * denominator_part2)
+    capital_a = (POPULATION_CAPACITY - max_data_year_pop) / max_data_year_pop
 
-    result = (POPULATION_CAPACITY * max_data_year_pop) / denominator
+    denominator_part2 = Math.exp(-POST_DATA_GROWTH_RATE * number_of_years)
+    denominator = 1 + (capital_a * denominator_part2)
+
+    result = POPULATION_CAPACITY / denominator
 
     result.to_i
   end
